@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>wsQuoteServer Test Client</title>
+<script type="text/javascript" src=".\node_modules\socket.io-client\dist\socket.io.js"></script>
+</head>
+<script type="text/javascript">
+'use strict';
+function getquotes(){
+    var outdiv = document.getElementById('quotes');
+    var socket = io.connect('ws://localhost:3000');
+    socket.emit('getquotes');
+    socket.on("newquote", function(response) {
+        console.log("socket.on: response: " + response + "<");
+        outdiv.innerHTML += "<p>" + response + "</p>";
+    });
+}
+window.onload = getquotes;
+</script>
+<body>
+<div id="quotes"></div>
+</body>
+</html>

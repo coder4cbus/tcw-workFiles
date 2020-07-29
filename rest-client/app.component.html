@@ -1,0 +1,73 @@
+<div *ngIf="isLoading">
+  <h4 >Loading...</h4>
+</div>
+
+
+<div *ngIf="!isLoading">
+  <h4 >Current books ({{books.length}})</h4>
+  <div >
+    <table >
+      <thead >
+        <tr>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="books.length === 0">
+        <tr>
+          <td colspan="4">There are no books in the DB. Add a new book below.</td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="!isEditing">
+        <tr *ngFor="let book of books">
+          <td>{{book.isbn}}</td>
+          <td>{{book.title}}</td>
+          <td>{{book.price}}</td>
+          <td>
+            <button (click)="enableEditing(book)"> Edit</button> 
+			<button (click)="deleteBook(book)"> Delete</button>
+          </td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="isEditing">
+        <tr>
+          <td colspan="4">
+            <form #form="ngForm" (ngSubmit)="editBook(book)" style="display:inline">
+              <div >
+                  <input type="number" name="isbn" [(ngModel)]="book.isbn" [disabled]="true" placeholder="ISBN" required>
+              </div>
+              <div >
+                <input type="text" name="title" [(ngModel)]="book.title" placeholder="Title" required>
+              </div>
+              <div >
+                <input type="number" step="any" name="price" [(ngModel)]="book.price" placeholder="Price" required>
+              </div>
+              <button type="submit" [disabled]="!form.form.valid"> Save</button>
+            </form>
+            <button (click)="cancelEditing()"> Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!isEditing">
+  <h4 >Add new book</h4>
+  <div >
+    <form  [formGroup]="addBookForm" (ngSubmit)="addBook()" >
+      <div >
+          <input  type="number" name="isbn" formControlName="isbn" placeholder="ISBN">
+      </div>
+      <div >
+        <input  type="text" name="title" formControlName="title" placeholder="Title" >
+      </div>
+      <div >
+        <input  type="number" step="any" name="price" formControlName="price" placeholder="Price" >
+      </div>
+      <button type="submit" [disabled]="!addBookForm.valid"> Add</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+:host {
+    margin:5px;
+    display:block;
+    position:absolute;
+    max-width: 400px;
+}
+
+:host div {
+    border: 1px solid grey;
+    padding: 5px;
+}
+:host h3 { 
+    padding: 5px;
+    margin-bottom:5px;
+    background-color:lightgray;
+    text-align: center;
+}

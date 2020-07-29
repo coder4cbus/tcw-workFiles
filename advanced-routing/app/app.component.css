@@ -1,0 +1,10 @@
+.login {
+    display: inline-block;
+    border: 1px solid grey;
+    padding: 2px;
+    margin: 2px;
+}
+.user {
+    font-size: .6em;
+    font-family: sans-serif;
+}
